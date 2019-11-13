@@ -1,8 +1,11 @@
 package com.example.papa.stepdetector;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -29,13 +32,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private LinearLayout layout;
     private SensorManager mSensorManager, wSensorManager, sensorManager;
     private Sensor mSensor,stepDetectorSensor;
+    MyDBHelper m_helper;
     //private GraphView line_graph;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        m_helper = new MyDBHelper(this, "accelerometer.db", null, 1);
         xText = (TextView) findViewById(R.id.xValue);
         yText = (TextView) findViewById(R.id.yValue);
         zText = (TextView) findViewById(R.id.zValue);
@@ -118,6 +122,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mSeriesAccelY.appendData(new DataPoint(graphLastAccelXValue, y), true, 100);
         mSeriesAccelZ.appendData(new DataPoint(graphLastAccelXValue, z), true, 100);
 
+        SQLiteDatabase db = m_helper.getWritableDatabase();
+        String sql = String.format("INSERT INTO accelerometer VALUES('%lf', '%lf', '%lf', '%d', '%lf')", x, y, z, 0, 0);//ms step값 필요
+        db.execSQL(sql);
+        db.close();
+
 
         //svmValue = Math.sqrt(x * x + y * y + z * z);
         //mSeriesAccelA.appendData(new DataPoint(graphLastAccelXValue, svmValue), true, 100);
@@ -128,4 +137,22 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     }
 }
+
+class MyDBHelper extends SQLiteOpenHelper {
+    public MyDBHelper (Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+        super(context, name, factory, version);
+    }
+
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE accelerometer (x DOUBLE, y DOUBLE, z DOUBLE, step INT, ms LONG PRIMARY KEY)");
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
+    }
+
+
+}
+
 
