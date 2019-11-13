@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp">
+
+        <com.jjoe64.graphview.GraphView
+            android:id="@+id/xyzgraph"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_marginTop="50dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="250dp"
+            android:layout_marginBottom="30dp"
+            tools:ignore="MissingConstraints">
+
+
+            <com.jjoe64.graphview.GraphView
+                android:id="@+id/svm"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_marginTop="320dp"
+                android:layout_marginBottom="30dp" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/xValue"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:text="X "
+        tools:ignore="MissingConstraints" />
+        //android:layout_below="@+id/btnStart"
+        android:layout_marginStart="20dp"/>
+
+    <TextView
+        android:id="@+id/yValue"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:text="Y "
+        android:layout_below="@+id/xValue"
+        tools:ignore="MissingConstraints" />
+        //android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp" />
+
+    <TextView
+        android:id="@+id/zValue"
+        android:layout_width="450dp"
+        android:layout_height="40dp"
+        android:text="Z "
+        android:layout_below="@+id/yValue"
+        android:layout_marginLeft="20dp"
+        tools:ignore="MissingConstraints" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="190dp"
+        tools:ignore="MissingConstraints">
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/graphsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Graphs"
+        android:textAlignment="center"
+        android:textSize="25dp"
+        tools:layout_editor_absoluteX="146dp"
+        tools:layout_editor_absoluteY="1dp"
+        tools:ignore="MissingConstraints" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
